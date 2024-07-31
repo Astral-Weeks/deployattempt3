@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Your Order Has Been Sent!</h1>
+<!--Begin col-->
+<div class="column">
+    <p>Your Items</p>
+    {% for i in orderitems.orderitems %}
+    <p>
+    <h3>Item: {{ i.menuitem }}</h3>
+    <h3>Quantity: {{ i.quantity }}</h3>
+    <h3>Price Per Item: {{ i.unit_price }}</h3>
+    <h3>Total: {{ i.price }}</h3>
+    <br>
+    </p>
+    {% endfor %}
+    <br>
+    <h3>Total:</h3>
+    {% for i in order.order %}
+    <p>
+    <h3>Date: {{ i.date }}</h3>
+    <h3>Status: {{ i.status }}</h3>
+    <h3>Total: {{ i.price }}</h3>
+    </p>
+    {% endfor %}
+</div>
+<!--End col-->
+{% endblock %}

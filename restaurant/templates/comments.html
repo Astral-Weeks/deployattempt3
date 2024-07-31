@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section>
+
+    <form action="/comments/" method="post">
+        {% csrf_token %}
+         {{form.as_p}}
+         <input type="submit" value="Submit">
+    </form>
+
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{message}}</p>
+      {% endfor %}
+    {% endif %}
+
+  </section>
+{% endblock %}

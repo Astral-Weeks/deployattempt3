@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    #mainhr {
+        border-top: 5px solid darkred
+    }
+</style>
+
+<div id="section1">
+    {% if request.user.is_authenticated %}
+    <h2>Hi {{ user.username }}, the following items have been added to your cart:</h2>
+    <br>
+        {% for i in personalcart.personalcart %}
+        <p>
+        <h3>Item: {{ i.menuitem }}</h3>
+        <h3>Quantity: {{ i.quantity }}</h3>
+        <h3>Price Per Item: {{ i.unit_price }}</h3>
+        <h3>Total: {{ i.price }}</h3>
+        <a href="{% url 'remove_from_cart' i.id %}">Remove</a>
+        </p>
+        <br>
+        {% endfor %}
+            <h2>Total: {{ total_price }}</h2>
+        <p>Are you ready?</p>
+        <button><a href="{% url 'order'%}">Place Your Order</a></button>
+    {% endif %}
+</div>
+<br>
+<hr id="mainhr">
+
+<div id="section2">
+    <h2>Select From the Menu</h2>
+    <div class="column">
+        {% for item in cate.cate %}
+           <h2>{{ item.title }}</h2>
+           
+            {% for i in menu.menu %}
+            <p>
+                <!-- <input type="checkbox" name="items[]" class="form-check-input" value="{{ app.pk }}"> -->
+                <!-- <label class="form-check-label"> -->
+                <a href="{% url 'menu_item' pk=i.pk %}">
+                    {% if i.category.title == item.title %}
+                    {{ i.title }}
+                    </a>
+                <!-- </label> -->
+                <span class="menu-price">
+                    ${{ i.price }}
+                </span>
+                <!-- <a href="#" class="buy-now-button">Buy Now</a> -->
+                <a class="buy-now-button" href="{% url 'add_to_cart' i.id %}">Add to Cart</a>
+                    {% endif %}
+            </p>
+                
+            {% endfor %}
+        {% endfor %}
+        
+    </div>    
+</div>
+
+{% endblock %}
+
