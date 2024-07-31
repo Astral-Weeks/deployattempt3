@@ -22,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r-%0eqcja86asp_+*1@3d6t9wm65$7^p*v^m961p@)w7*3ob0n'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -92,8 +92,8 @@ DATABASES = {
     }
 }
 
-# database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse('postgresql://littlelemontestsql_user:Y6ycXgyuinOJVGoijdeDHIzcO5AH1aJx@dpg-cqjrppmehbks73chhrug-a.oregon-postgres.render.com/littlelemontestsql')
+database_url = os.environ.get("DATABASE_URL")
+DATABASES["default"] = dj_database_url.parse(database_url)
 
 # The settings for media files have been updated for the Graded assessment
 MEDIA_URL = '/media/'
