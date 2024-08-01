@@ -92,8 +92,8 @@ DATABASES = {
     }
 }
 
-database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse(database_url)
+# database_url = os.environ.get("DATABASE_URL")
+DATABASES["default"] = dj_database_url.parse('postgresql://littlelemontestsql_user:Y6ycXgyuinOJVGoijdeDHIzcO5AH1aJx@dpg-cqjrppmehbks73chhrug-a.oregon-postgres.render.com/littlelemontestsql')
 
 # The settings for media files have been updated for the Graded assessment
 MEDIA_URL = '/media/'
