@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS")
 
 
 # Application definition
@@ -92,8 +92,8 @@ DATABASES = {
     }
 }
 
-# database_url = os.environ.get("DATABASE_URL")
-DATABASES["default"] = dj_database_url.parse('postgresql://littlelemontestsql_user:Y6ycXgyuinOJVGoijdeDHIzcO5AH1aJx@dpg-cqjrppmehbks73chhrug-a.oregon-postgres.render.com/littlelemontestsql')
+database_url = os.environ.get("DATABASE_URL")
+DATABASES["default"] = dj_database_url.parse(database_url)
 
 # The settings for media files have been updated for the Graded assessment
 MEDIA_URL = '/media/'
