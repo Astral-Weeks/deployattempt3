@@ -40,14 +40,31 @@ def reservations(request):
     booking_json = serializers.serialize('json', bookings)
     return render(request, 'bookings.html', {"bookings": booking_json})
 
-def book(request):
-    form = BookingForm()
-    if request.method == 'POST':
-        form = BookingForm(request.POST)
-        if form.is_valid():
-            form.save()
-    context = {'form':form}
-    return render(request, 'book.html', context)
+class book(TemplateView):
+    permission_classes = [IsAuthenticated]
+    template_name = 'book.html'
+
+    def post(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            form = BookingForm()
+            if request.method == 'POST':
+                form = BookingForm(request.POST)
+                if form.is_valid():
+                    form.save()
+            context = {'form':form}
+            return render(request, 'book.html', context)
+        else:
+            messages.error(request, 'Please login first to see your cart.')
+            return redirect('book')
+
+# def book(request):
+#     form = BookingForm()
+#     if request.method == 'POST':
+#         form = BookingForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#     context = {'form':form}
+#     return render(request, 'book.html', context)
 
 
 def signup(request):

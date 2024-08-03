@@ -5,6 +5,7 @@
 <section>
   <article>
     <h1>Make a reservation</h1>
+    {% if request.user.is_authenticated %}
     <!--Begin row-->    
     <div class="row">
       <!--Begin col-->
@@ -43,8 +44,19 @@
       <!--End col-->
     </div>
     <!--End row-->
+    {% else %}
+    <p>Please login or create an account in order to make a booking</p>
+    <br>
+    <p>Feel free to login at <a href="/login-page">our login page</a>, or to make an account
+    at <a href="/auth/users/">our signup page</a></p>
 
+    {% endif %}
 
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{message}}</p>
+      {% endfor %}
+    {% endif %}
 
 
   </article>
@@ -78,7 +90,7 @@
         for (item of data) {
           console.log(item.fields);
           reserved_slots.push(item.fields.reservation_slot);
-          bookings += `<p>${item.fields.first_name} - ${formatTime(item.fields.reservation_slot)}</p>`;
+          bookings += `<p>${formatTime(item.fields.reservation_slot)} - Already Booked Out</p>`;
         }
 
         /* Step 12: Part four  */
